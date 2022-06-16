@@ -22,14 +22,39 @@ const ContainerCarrinho = styled.div`
 
 
 class App extends React.Component {
+state = {
+  valorMinimoFilter: "",
+  valorMaximoFilter: "",
+  buscaIncludes: "",
+  produtosCarrinho: [],
+}
+
+adicionarProduto = () => {
+  
+  const produtoDoCarrinho = {
+    contador: 1,
+    nomeDoProduto: "amora",
+  }
+
+ const novaListaDeProdutosDoCarrinho = [produtoDoCarrinho, ...this.state.listaDeProdutosDoCarrinho]
+
+ this.setState({listaDeProdutosDoCarrinho: novaListaDeProdutosDoCarrinho})
+}
+
   render() {
     return (
       <ContainerPrincipal>
         <ContainerFiltros>
           <Filtros />
+          
         </ContainerFiltros>
         <Produtos />
         <ContainerCarrinho>
+          const listaCarrinho = this.state.listaDeProdutosDoCarrinho.map((produto) => {
+          
+        />
+            />
+          }
           <Carrinho />
         </ContainerCarrinho>
       </ContainerPrincipal>

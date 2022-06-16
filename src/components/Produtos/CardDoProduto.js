@@ -8,17 +8,7 @@ export default class CardDoProduto extends React.Component {
     }
 
 
-    adicionarProduto = () => {
-  
-      const produtoDoCarrinho = {
-        contador: 1,
-        nomeDoProduto: this.props.name,
-      }
-
-     const novaListaDeProdutosDoCarrinho = [produtoDoCarrinho, ...this.state.listaDeProdutosDoCarrinho]
-
-     this.setState({listaDeProdutosDoCarrinho: novaListaDeProdutosDoCarrinho})
-   }
+    
 
     render() {
         const listaCarrinho = this.state.listaDeProdutosDoCarrinho.map((produto)=>{

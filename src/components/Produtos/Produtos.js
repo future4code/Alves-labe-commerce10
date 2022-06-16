@@ -59,6 +59,3 @@ export default class Produtos extends React.Component {
         )
     }
 }
-
-
-
