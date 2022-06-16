@@ -40,6 +40,8 @@ export default class Produtos extends React.Component {
                 />
             )
         })
+       
+        
 
         return (
             <div>

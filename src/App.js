@@ -22,6 +22,8 @@ const ContainerCarrinho = styled.div`
 
 
 class App extends React.Component {
+//  listateste = [1, 2, 5, 9, 12, 56, 78, 90, 34]
+
 state = {
   valorMinimoFilter: "",
   valorMaximoFilter: "",
@@ -36,7 +38,7 @@ state = {
     },
     {
         id: 2,
-        name: "Produto 2",
+        name: "lalala",
         value: 0.50,
         imageUrl: "https://picsum.photos/200/200",
     },
@@ -66,8 +68,44 @@ adicionarProduto = () => {
 
  this.setState({produtosCarrinho: novaListaDeProdutosDoCarrinho})
 }
+//  listaFiltrada = this.listateste.filter((numero) => {
+//     if (numero >= 1 ) {
+//         return true
+//     } else {
+//         return false
+//     }
+//    }).filter((numero) => {
+//     if (numero <= 50) {
+//         return true
+//     } else {
+//         return false
+//     }
+//    })
+  
+listaFiltrada = this.state.produtos.filter((produto) => {
+  if (produto.value >= 1 ) {
+      return true
+  } else {
+      return false
+  }
+ }).filter((produto) => {
+  if (produto.value <= 2) {
+      return true
+  } else {
+      return false
+  }
+ }).filter((produto) => {
+  if (produto.name.includes('') ) {
+      return true
+  } else {
+      return false
+
+    }
+  })
+
 
   render() {
+    
     const listaCarrinho = this.state.produtosCarrinho.map((produto) => {
       return <Carrinho 
 
@@ -77,14 +115,19 @@ adicionarProduto = () => {
        />
 
   })
+
+  console.log(this.listaFiltrada)
+
+ 
   
+  //  console.log(listaFiltrada)
     return (
       <ContainerPrincipal>
         <ContainerFiltros>
-          <Filtros />
+          <Filtros produtos={this.state.produtos} />
           
         </ContainerFiltros>
-        <Produtos adicionarProduto={this.adicionarProduto} produtos = {this.state.produtos} />
+        <Produtos adicionarProduto={this.adicionarProduto} produtos = {this.listaFiltrada} />
         <ContainerCarrinho>
           <h1>Carrinho</h1>
           {listaCarrinho}
