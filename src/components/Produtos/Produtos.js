@@ -6,30 +6,20 @@ import CardDoProduto from "./CardDoProduto"
 
 
 export default class Produtos extends React.Component {
-    // state = {
-    //     produtos: [
-    //         {
-    //             id: 1,
-    //             name: "Produto 1",
-    //             value: 1.99,
-    //             imageUrl: "https://picsum.photos/200/200",
-    //         },
-    //         {
-    //             id: 2,
-    //             name: "Produto 2",
-    //             value: 0.50,
-    //             imageUrl: "https://picsum.photos/200/200",
-    //         },
-    //         {
-    //             id: 3,
-    //             name: "Produto 3",
-    //             value: 1.50,
-    //             imageUrl: "https://picsum.photos/200/200",
-    //         },
-    //     ]
-    // }
+    
     render() {
-        const listaDeProdutos = this.props.produtos.map((produto) => {
+        let listaFiltrada = this.props.produtos.filter((produto) => {
+            return produto.value >= this.props.valorMinimoFilter || this.props.valorMinimoFilter === ""
+          })
+          .filter((produto) => {
+            return produto.value <= this.props.valorMaximoFilter || this.props.valorMaximoFilter === ""
+          })
+          .filter((produto) => {
+            return produto.name.includes(this.props.busca)
+          })
+      
+
+        const listaDeProdutos = listaFiltrada.map((produto) => {
             return (
                 <CardDoProduto
                     adicionarProduto = {this.props.adicionarProduto}
@@ -41,7 +31,6 @@ export default class Produtos extends React.Component {
             )
         })
        
-        
 
         return (
             <div>

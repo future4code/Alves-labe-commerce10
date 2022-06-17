@@ -28,7 +28,7 @@ class App extends React.Component {
     valorMinimoFilter: "",
     valorMaximoFilter: "",
     busca: "",
-    produtosCarrinho: [{ id: 1, contador: 1, nomeDoProduto: "abacaxi" }],
+    produtosCarrinho: [],
     produtos: [
       {
         id: 1,
@@ -38,7 +38,7 @@ class App extends React.Component {
       },
       {
         id: 2,
-        name: "lalala",
+        name: "Produto 2",
         value: 80,
         imageUrl: "https://picsum.photos/200/200",
       },
@@ -76,35 +76,13 @@ class App extends React.Component {
     const produtoDoCarrinho = {
       id: 3,
       contador: 1,
-      nomeDoProduto: this.state.teste,
+      nomeDoProduto: "morango",
     }
 
     const novaListaDeProdutosDoCarrinho = [produtoDoCarrinho, ...this.state.produtosCarrinho]
 
     this.setState({ produtosCarrinho: novaListaDeProdutosDoCarrinho })
   }
-
-
-  listaFiltrada = this.state.produtos.filter((produto) => {
-    if (produto.value >= this.state.valorMinimoFilter) {
-      return true
-    } else {
-      return false
-    }
-  }).filter((produto) => {
-    if (produto.value <= this.state.valorMaximoFilter) {
-      return true
-    } else {
-      return false
-    }
-  }).filter((produto) => {
-    if (produto.name.includes("")) {
-      return true
-    } else {
-      return false
-
-    }
-  })
 
 
   render() {
@@ -118,11 +96,11 @@ class App extends React.Component {
       />
 
     })
-    
+    { console.log(this.state.valorMinimoFilter) }
     return (
       <ContainerPrincipal>
         <ContainerFiltros>
-          
+
           <Filtros
             produtos={this.state.produtos}
             valorMinimoFilter={this.state.valorMinimoFilter}
@@ -135,7 +113,12 @@ class App extends React.Component {
           />
 
         </ContainerFiltros>
-        <Produtos adicionarProduto={this.adicionarProduto} produtos={this.listaFiltrada} />
+        <Produtos adicionarProduto={this.adicionarProduto}
+          produtos={this.state.produtos}
+          valorMinimoFilter={this.state.valorMinimoFilter}
+          valorMaximoFilter={this.state.valorMaximoFilter}
+          busca={this.state.busca}
+        />
         <ContainerCarrinho>
           <h1>Carrinho</h1>
           {listaCarrinho}
