@@ -22,82 +22,85 @@ const ContainerCarrinho = styled.div`
 
 
 class App extends React.Component {
-//  listateste = [1, 2, 5, 9, 12, 56, 78, 90, 34]
 
-state = {
-  valorMinimoFilter: "",
-  valorMaximoFilter: "",
-  buscaIncludes: "",
-  produtosCarrinho: [{id:1,contador:1,nomeDoProduto:"abacaxi"}],
-  produtos: [
-    {
+
+  state = {
+    valorMinimoFilter: "",
+    valorMaximoFilter: "",
+    busca: "",
+    produtosCarrinho: [{ id: 1, contador: 1, nomeDoProduto: "abacaxi" }],
+    produtos: [
+      {
         id: 1,
         name: "Produto 1",
-        value: 1.99,
+        value: 100,
         imageUrl: "https://picsum.photos/200/200",
-    },
-    {
+      },
+      {
         id: 2,
         name: "lalala",
-        value: 0.50,
+        value: 80,
         imageUrl: "https://picsum.photos/200/200",
-    },
-    {
+      },
+      {
         id: 3,
         name: "Produto 3",
-        value: 1.50,
+        value: 50,
         imageUrl: "https://picsum.photos/200/200",
-    },
-]
+      },
+    ]
 
 
-}
-
-
-adicionarProduto = () => {
-
-  console.log("Entrou na função")
-
-  const produtoDoCarrinho = {
-    id: 3,
-    contador: 1,
-    nomeDoProduto: this.state.teste,
   }
 
- const novaListaDeProdutosDoCarrinho = [produtoDoCarrinho, ...this.state.produtosCarrinho]
+  adicionaInputMinimo = (event) => {
+    this.setState({
+      valorMinimoFilter: event.target.value
+    })
+  }
 
- this.setState({produtosCarrinho: novaListaDeProdutosDoCarrinho})
-}
-//  listaFiltrada = this.listateste.filter((numero) => {
-//     if (numero >= 1 ) {
-//         return true
-//     } else {
-//         return false
-//     }
-//    }).filter((numero) => {
-//     if (numero <= 50) {
-//         return true
-//     } else {
-//         return false
-//     }
-//    })
-  
-listaFiltrada = this.state.produtos.filter((produto) => {
-  if (produto.value >= 1 ) {
+  adicionaInputMaximo = (event) => {
+    this.setState({
+      valorMaximoFilter: event.target.value
+    })
+  }
+  adicionaInputBusca = (event) => {
+    this.setState({
+      busca: event.target.value
+    })
+  }
+
+
+  adicionarProduto = () => {
+
+    const produtoDoCarrinho = {
+      id: 3,
+      contador: 1,
+      nomeDoProduto: this.state.teste,
+    }
+
+    const novaListaDeProdutosDoCarrinho = [produtoDoCarrinho, ...this.state.produtosCarrinho]
+
+    this.setState({ produtosCarrinho: novaListaDeProdutosDoCarrinho })
+  }
+
+
+  listaFiltrada = this.state.produtos.filter((produto) => {
+    if (produto.value >= this.state.valorMinimoFilter) {
       return true
-  } else {
+    } else {
       return false
-  }
- }).filter((produto) => {
-  if (produto.value <= 2) {
+    }
+  }).filter((produto) => {
+    if (produto.value <= this.state.valorMaximoFilter) {
       return true
-  } else {
+    } else {
       return false
-  }
- }).filter((produto) => {
-  if (produto.name.includes('') ) {
+    }
+  }).filter((produto) => {
+    if (produto.name.includes("")) {
       return true
-  } else {
+    } else {
       return false
 
     }
@@ -105,29 +108,34 @@ listaFiltrada = this.state.produtos.filter((produto) => {
 
 
   render() {
-    
+
     const listaCarrinho = this.state.produtosCarrinho.map((produto) => {
-      return <Carrinho 
+      return <Carrinho
 
-          key = {produto.id}
-          contador = {produto.contador}
-          nomeDoProduto = {produto.nomeDoProduto}
-       />
+        key={produto.id}
+        contador={produto.contador}
+        nomeDoProduto={produto.nomeDoProduto}
+      />
 
-  })
-
-  console.log(this.listaFiltrada)
-
- 
-  
-  //  console.log(listaFiltrada)
+    })
+    
     return (
       <ContainerPrincipal>
         <ContainerFiltros>
-          <Filtros produtos={this.state.produtos} />
           
+          <Filtros
+            produtos={this.state.produtos}
+            valorMinimoFilter={this.state.valorMinimoFilter}
+            valorMaximoFilter={this.state.valorMaximoFilter}
+            busca={this.state.busca}
+            adicionaInputMinimo={this.adicionaInputMinimo}
+            adicionaInputMaximo={this.adicionaInputMaximo}
+            adicionaInputBusca={this.adicionaInputBusca}
+
+          />
+
         </ContainerFiltros>
-        <Produtos adicionarProduto={this.adicionarProduto} produtos = {this.listaFiltrada} />
+        <Produtos adicionarProduto={this.adicionarProduto} produtos={this.listaFiltrada} />
         <ContainerCarrinho>
           <h1>Carrinho</h1>
           {listaCarrinho}
