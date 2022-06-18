@@ -87,16 +87,6 @@ class App extends React.Component {
 
   render() {
 
-    const listaCarrinho = this.state.produtosCarrinho.map((produto) => {
-      return <Carrinho
-
-        key={produto.id}
-        contador={produto.contador}
-        nomeDoProduto={produto.nomeDoProduto}
-      />
-
-    })
-    { console.log(this.state.valorMinimoFilter) }
     return (
       <ContainerPrincipal>
         <ContainerFiltros>
@@ -120,8 +110,7 @@ class App extends React.Component {
           busca={this.state.busca}
         />
         <ContainerCarrinho>
-          <h1>Carrinho</h1>
-          {listaCarrinho}
+         <Carrinho produtosCarrinho={this.state.produtosCarrinho}/>
         </ContainerCarrinho>
       </ContainerPrincipal>
     )
