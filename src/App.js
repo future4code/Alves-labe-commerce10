@@ -4,25 +4,64 @@ import Filtros from './components/Filtros/Filtros';
 import Carrinho from './components/Carrinho/Carrinho';
 import ItemDoCarrinho from './components/Carrinho/ItemDoCarrinho';
 import Produtos from './components/Produtos/Produtos';
-import CardDoProduto from './components/Produtos/CardDoProduto'
+import CardDoProduto from './components/Produtos/CardDoProduto';
+import Header from './components/Header/Header';
+import imgbg from './components/imagens/fundo.jpg';
+
+
 
 const ContainerPrincipal = styled.div`
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  grid-template-rows: 1fr;
-  height: 100vh;
- 
+  background-image: url(${imgbg});
+  margin: 10px;
+  border-bottom: 1px solid black;
+  
+`;
+
+
+const ContainerProdutos = styled.div`
+color:white;
+margin-top: 50px;
+margin-top:100px;
+display: grid
+grid-column: 1fr, 2fr, 1fr */
 `
+  
+
+
 const ContainerFiltros = styled.div`
-  border: 1px solid black;
-`
-const ContainerCarrinho = styled.div`
- border: 1px solid black;
+color: white;
+width: 40px;
+  text-align: center;
+  height: 50px;
+      margin-bottom: 30px;
+  display: inline-table;
+  justify-content: space-evenly;
+  align-items: center ;
+  
+  @media screen (min-width:390px) (max-device-width: 1200px);
+    
 `
 
+const ContainerCarrinho = styled.div`
+color: lime;
+width: 40px;
+  text-align: top;
+  height: 30px;
+  width: 40%;
+  padding: 50px;
+  box-shadow: 8px 8px 8px 5px silver;
+  align-items: top;
+  :hover {
+    -webkit-transform: rotate(2deg); 
+    transform: rotate(2deg);
+  @media screen (min-width:390px) (max-device-width: 1200px);
+  
+`
+const adicionaInputMinimo = styled.input`
+    background-color: lime
+    `
 
 class App extends React.Component {
-
 
   state = {
     valorMinimoFilter: "",
@@ -32,26 +71,42 @@ class App extends React.Component {
     produtos: [
       {
         id: 1,
-        name: "Produto 1",
+        name: "Pacote 1",
         value: 100,
         imageUrl: "https://picsum.photos/200/200",
+        chamada: "Inverno em Marte",
+        descricao: "inclui 3 dias de hospedagem + aerea",
       },
+
       {
         id: 2,
-        name: "Produto 2",
+        name: "Pacote 2",
         value: 80,
         imageUrl: "https://picsum.photos/200/200",
+        chamada: "Não perca!",
+        descricao: "inclui 3 dias de hospedagem + aerea",
+
       },
+
       {
         id: 3,
-        name: "Produto 3",
+        name: "Pacote 3",
         value: 50,
         imageUrl: "https://picsum.photos/200/200",
+        chamada: "Não perca!",
+        descricao: "inclui 3 dias de hospedagem + aerea",
       },
     ]
 
 
   }
+
+  //------------------------- FIM DOS ESTADOS!
+
+ 
+
+
+  //------------------------- FILTROS!
 
   adicionaInputMinimo = (event) => {
     this.setState({
@@ -70,25 +125,40 @@ class App extends React.Component {
     })
   }
 
+  //------------------------- CARRINHO!
 
-  adicionarProduto = () => {
+  deletaProduto = (id) => {
+    const novaListaCarrinho = this.state.produtosCarrinho.filter((produto) => {
+      return id !== produto.id
+    })
+    this.setState({ produtosCarrinho: novaListaCarrinho })
+  }
 
-    const produtoDoCarrinho = {
-      id: 3,
-      contador: 1,
-      nomeDoProduto: "morango",
-    }
-
-    const novaListaDeProdutosDoCarrinho = [produtoDoCarrinho, ...this.state.produtosCarrinho]
-
-    this.setState({ produtosCarrinho: novaListaDeProdutosDoCarrinho })
+  adicionarProduto = (id) => {
+    const novoProduto = this.state.produtos.filter((produto) => {
+      return id === produto.id
+    })
+    // const novaListaDeProdutosDoCarrinho = [novoProduto]
+    this.setState({ produtosCarrinho: novoProduto })
   }
 
 
   render() {
 
+   
+
+
     return (
+     
+      
       <ContainerPrincipal>
+     
+     <Header/>
+      
+     <ContainerCarrinho>
+          <Carrinho produtosCarrinho={this.state.produtosCarrinho} deletaProduto={this.deletaProduto} />
+        </ContainerCarrinho>
+
         <ContainerFiltros>
 
           <Filtros
@@ -99,20 +169,27 @@ class App extends React.Component {
             adicionaInputMinimo={this.adicionaInputMinimo}
             adicionaInputMaximo={this.adicionaInputMaximo}
             adicionaInputBusca={this.adicionaInputBusca}
-
           />
 
         </ContainerFiltros>
-        <Produtos adicionarProduto={this.adicionarProduto}
+
+        
+      
+
+        <ContainerProdutos>
+
+        <Produtos 
+          adicionarProduto={this.adicionarProduto}
           produtos={this.state.produtos}
           valorMinimoFilter={this.state.valorMinimoFilter}
           valorMaximoFilter={this.state.valorMaximoFilter}
           busca={this.state.busca}
         />
-        <ContainerCarrinho>
-         <Carrinho produtosCarrinho={this.state.produtosCarrinho}/>
-        </ContainerCarrinho>
-      </ContainerPrincipal>
+
+        </ContainerProdutos>
+        
+        </ContainerPrincipal>
+        
     )
   }
 }
