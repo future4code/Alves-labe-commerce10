@@ -10,15 +10,17 @@ const ContainerItemCarrinho = styled.div`
 
 
 export default class ItemDoCarrinho extends React.Component {
-
-
   render() {
-
+      const listaDoCarrinho = this.props.produtosCarrinho.map((produto,indice)=>{
+        return <div key={indice}>
+          {/* <p>{produto.id}</p> */}
+          <p>{produto.name}</p>
+          <button onClick={()=> this.props.deletaProduto(produto.id)} >Remover</button>
+        </div>
+      })
     return (
       <ContainerItemCarrinho>
-        <p>{this.props.contador}</p>
-        <p>{this.props.nomeDoProduto}</p>
-        <button>Remover</button>
+       {listaDoCarrinho}
       </ContainerItemCarrinho>
     )
   }

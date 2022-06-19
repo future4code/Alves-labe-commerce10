@@ -1,11 +1,25 @@
 import React from 'react'
+import styled from 'styled-components'
 import CardDoProduto from "./CardDoProduto"
 
 
 
+const ContainerProdutos = styled.div`
+ display: inline-flex;
+  justify-content: center;
+   align-items: center;
+  @media screen (min-width:390px) (max-device-width: 1200px);
+  
 
+  `
 
-export default class Produtos extends React.Component {
+  const InProdutos = styled.div`
+display: inline-table;
+color: lime;
+
+`
+
+  export default class Produtos extends React.Component {
     state = {
         ordenacao: "titulo",
         ordem: 1
@@ -52,16 +66,19 @@ export default class Produtos extends React.Component {
                 <CardDoProduto
                     adicionarProduto={this.props.adicionarProduto}
                     key={produto.id}
+                    teste={produto.id}
                     name={produto.name}
                     value={produto.value}
                     imagemUrl={produto.imageUrl}
+                    chamada={produto.chamada}
+                    descricao={produto.descricao}
                 />
             )
         })
 
 
         return (
-            <div>
+            <InProdutos>
                 <div>
                     <p>Quantidade de produtos: {listaDeProdutos.length}</p>
                     <label for="sort"> Ordenação </label>
@@ -79,10 +96,11 @@ export default class Produtos extends React.Component {
                         <option value={-1}> Decrescente </option>
                     </select>
                 </div>
+                <br/>
                 <div>
                     {listaDeProdutos}
                 </div>
-            </div>
+            </InProdutos>
 
         )
     }

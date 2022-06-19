@@ -1,6 +1,13 @@
 import React from 'react'
+import styled from 'styled-components'
 
-
+const Infiltros = styled.div`
+display: inline;
+margin-top: 0px;
+margin-top: 0px;
+color: lime;
+font-family: arial;
+`
 
 export default class Filtros extends React.Component {
 
@@ -9,19 +16,17 @@ export default class Filtros extends React.Component {
     render() {
         
         return (
-            <div>
-                <h1>Filtros</h1>
-                                 
-                <p>Valor mínimo:</p>
-                <input  placeholder="Digite aqui" value={this.props.valorMinimoFilter} onChange={this.props.adicionaInputMinimo} />
+            <Infiltros>
+                <br/>
+                <h3>Filtros</h3>                               
+                <n/>
+                <input  placeholder="Valor Mínimo" value={this.props.valorMinimoFilter} onChange={this.props.adicionaInputMinimo} />               
+                <br/>
+                <input  placeholder="Valor Máximo" value={this.props.valorMaximoFilter} onChange={this.props.adicionaInputMaximo} />                
+                <br/>
+                <input  placeholder="Busca por nome" value={this.props.busca} onChange={this.props.adicionaInputBusca} />
                 
-                <p>Valor máximo:</p>
-                <input  placeholder="Digite aqui" value={this.props.valorMaximoFilter} onChange={this.props.adicionaInputMaximo} />
-                
-                <p>Busca por nome:</p>
-                <input  placeholder="Digite aqui" value={this.props.busca} onChange={this.props.adicionaInputBusca} />
-                
-                </div>
+                </Infiltros>
         )
     }
 }
