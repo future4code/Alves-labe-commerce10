@@ -16,11 +16,11 @@ height: 90vh;
   flex-direction: column;
   text-align: center;
   align-items: justify;
-  @media screen (min-width:390px) (max-device-width: 1200px);
+  /* @media screen (min-width:390px) (max-device-width: 1200px);
     :hover {
     -webkit-transform: scale(1.1);
    
-  }
+  } */
   
  `
 

@@ -8,7 +8,7 @@ const ContainerProdutos = styled.div`
  display: inline-flex;
   justify-content: center;
    align-items: center;
-  @media screen (min-width:390px) (max-device-width: 1200px);
+  /* @media screen (min-width:390px) (max-device-width: 1200px); */
   
 
   `
