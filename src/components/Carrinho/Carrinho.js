@@ -7,19 +7,24 @@ import ItemDoCarrinho from './ItemDoCarrinho'
 export default class Carrinho extends React.Component {
 
     render() {
-        const listaCarrinho = this.props.produtosCarrinho.map((produto) => {
+        const listaCarrinho = this.props.produtosCarrinho.map((produto,indice) => {
             return <ItemDoCarrinho
-      
-              key={produto.id}
-              contador={produto.contador}
-              nomeDoProduto={produto.nomeDoProduto}
+                deletaProduto={this.props.deletaProduto}
+                produto = {produto}
+                key={indice}
+                teste={produto.id}
+                name={produto.name}
+                value = {produto.value}
+                quantidade={produto.quantidade}
+                
             />
-      
-          })
+
+        })
         return (
             <div>
                 <h1>Carrinho</h1>
                 {listaCarrinho}
+                <p>Valor total: {this.props.valorTotalCarrinho}</p>
             </div>
         )
     }

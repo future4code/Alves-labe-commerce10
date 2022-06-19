@@ -14,18 +14,21 @@ const ContainerPrincipal = styled.div`
   background-image: url(${imgbg});
   margin: 10px;
   border-bottom: 1px solid black;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 100px 0.5fr 200px 1fr;
   
-`;
+`
 
 
 const ContainerProdutos = styled.div`
 color:white;
 margin-top: 50px;
 margin-top:100px;
-display: grid
-grid-column: 1fr, 2fr, 1fr */
+display: grid;
+grid-column: 1fr, 2fr, 1fr;
 `
-  
+
 
 
 const ContainerFiltros = styled.div`
@@ -38,28 +41,28 @@ width: 40px;
   justify-content: space-evenly;
   align-items: center ;
   
-  @media screen (min-width:390px) (max-device-width: 1200px);
+  /* @media screen (min-width:390px) (max-device-width: 1200px); */
     
 `
 
 const ContainerCarrinho = styled.div`
 color: lime;
-width: 40px;
+/* width: 40px; */
   text-align: top;
-  height: 30px;
-  width: 40%;
+  /* height: 30px; */
+  /* width: 40%; */
   padding: 50px;
   box-shadow: 8px 8px 8px 5px silver;
   align-items: top;
-  :hover {
+  /* :hover {
     -webkit-transform: rotate(2deg); 
     transform: rotate(2deg);
-  @media screen (min-width:390px) (max-device-width: 1200px);
+  @media screen (min-width:390px) (max-device-width: 1200px);} */
   
 `
 const adicionaInputMinimo = styled.input`
-    background-color: lime
-    `
+    background-color: lime;
+`
 
 class App extends React.Component {
 
@@ -68,6 +71,7 @@ class App extends React.Component {
     valorMaximoFilter: "",
     busca: "",
     produtosCarrinho: [],
+    valorTotalCarrinho: 0,
     produtos: [
       {
         id: 1,
@@ -76,6 +80,7 @@ class App extends React.Component {
         imageUrl: "https://picsum.photos/200/200",
         chamada: "Inverno em Marte",
         descricao: "inclui 3 dias de hospedagem + aerea",
+        quantidade: 0,
       },
 
       {
@@ -85,6 +90,7 @@ class App extends React.Component {
         imageUrl: "https://picsum.photos/200/200",
         chamada: "Não perca!",
         descricao: "inclui 3 dias de hospedagem + aerea",
+        quantidade: 0,
 
       },
 
@@ -95,6 +101,7 @@ class App extends React.Component {
         imageUrl: "https://picsum.photos/200/200",
         chamada: "Não perca!",
         descricao: "inclui 3 dias de hospedagem + aerea",
+        quantidade: 0,
       },
     ]
 
@@ -103,7 +110,7 @@ class App extends React.Component {
 
   //------------------------- FIM DOS ESTADOS!
 
- 
+
 
 
   //------------------------- FILTROS!
@@ -128,35 +135,69 @@ class App extends React.Component {
   //------------------------- CARRINHO!
 
   deletaProduto = (id) => {
-    const novaListaCarrinho = this.state.produtosCarrinho.filter((produto) => {
-      return id !== produto.id
+    this.state.produtos.map((produto) => {
+      if (produto.id === id) {
+        if (produto.quantidade > 0) {
+          produto.quantidade = produto.quantidade - 1
+          this.setState({ valorTotalCarrinho: this.state.valorTotalCarrinho - produto.value })
+        }
+        if (produto.quantidade <= 0) {
+          let novaListaCarrinho = this.state.produtosCarrinho.filter((produto) => {
+            return produto.id !== id
+          })
+          this.state.produtosCarrinho = novaListaCarrinho
+          this.setState({ produtosCarrinho: this.state.produtosCarrinho })
+          this.setState({ valorTotalCarrinho: this.state.valorTotalCarrinho - produto.value })
+        }
+      }
     })
-    this.setState({ produtosCarrinho: novaListaCarrinho })
   }
 
   adicionarProduto = (id) => {
-    const novoProduto = this.state.produtos.filter((produto) => {
-      return id === produto.id
+    this.state.produtos.map((produto) => {
+      if (produto.id === id) {
+        if(produto.quantidade <= 0 ){
+          produto = {
+            ... produto,
+            quantidade: produto.quantidade + 1
+          }
+          this.state.produtosCarrinho = [produto, ...this.state.produtosCarrinho]
+          this.setState({ produtosCarrinho: this.state.produtosCarrinho })
+          this.setState({ valorTotalCarrinho: this.state.valorTotalCarrinho + produto.value })
+          return produto
+        }
+        else if (produto.quantidade > 0) {
+          produto = {
+            ...produto,
+            quantidade: produto.quantidade + 1
+          }
+          this.state.produtosCarrinho = [this.state.produtosCarrinho]
+          this.setState({produtosCarrinho: this.state.produtosCarrinho})
+          this.setState({ valorTotalCarrinho: this.state.valorTotalCarrinho + produto.value })
+          return produto
+        }
+      }
     })
-    // const novaListaDeProdutosDoCarrinho = [novoProduto]
-    this.setState({ produtosCarrinho: novoProduto })
   }
 
 
   render() {
 
-   
+
 
 
     return (
-     
-      
+
+
       <ContainerPrincipal>
-     
-     <Header/>
-      
-     <ContainerCarrinho>
-          <Carrinho produtosCarrinho={this.state.produtosCarrinho} deletaProduto={this.deletaProduto} />
+
+        <Header />
+
+        <ContainerCarrinho>
+          <Carrinho 
+          produtosCarrinho={this.state.produtosCarrinho} 
+          deletaProduto={this.deletaProduto} 
+          valorTotalCarrinho={this.state.valorTotalCarrinho} />
         </ContainerCarrinho>
 
         <ContainerFiltros>
@@ -173,23 +214,23 @@ class App extends React.Component {
 
         </ContainerFiltros>
 
-        
-      
+
+
 
         <ContainerProdutos>
 
-        <Produtos 
-          adicionarProduto={this.adicionarProduto}
-          produtos={this.state.produtos}
-          valorMinimoFilter={this.state.valorMinimoFilter}
-          valorMaximoFilter={this.state.valorMaximoFilter}
-          busca={this.state.busca}
-        />
+          <Produtos
+            adicionarProduto={this.adicionarProduto}
+            produtos={this.state.produtos}
+            valorMinimoFilter={this.state.valorMinimoFilter}
+            valorMaximoFilter={this.state.valorMaximoFilter}
+            busca={this.state.busca}
+          />
 
         </ContainerProdutos>
-        
-        </ContainerPrincipal>
-        
+
+      </ContainerPrincipal>
+
     )
   }
 }
