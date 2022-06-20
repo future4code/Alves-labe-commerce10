@@ -8,14 +8,12 @@ const ContainerProdutos = styled.div`
  display: inline-flex;
   justify-content: center;
    align-items: center;
-  /* @media screen (min-width:390px) (max-device-width: 1200px); */
   
-
   `
 
   const InProdutos = styled.div`
 display: inline-table;
-color: lime;
+color: black;
 
 `
 
@@ -80,8 +78,8 @@ color: lime;
         return (
             <InProdutos>
                 <div>
-                    <p>Quantidade de produtos: {listaDeProdutos.length}</p>
-                    <label for="sort"> Ordenação </label>
+                    <p><strong>Quantidade de produtos: {listaDeProdutos.length}</strong></p>
+                    <label for="sort"><strong> Ordenação </strong></label>
                     <select
                         name="sort"
                         value={this.state.ordenacao}

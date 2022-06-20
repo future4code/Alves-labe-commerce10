@@ -2,68 +2,38 @@ import React from 'react';
 import styled from 'styled-components';
 import Filtros from './components/Filtros/Filtros';
 import Carrinho from './components/Carrinho/Carrinho';
-import ItemDoCarrinho from './components/Carrinho/ItemDoCarrinho';
 import Produtos from './components/Produtos/Produtos';
-import CardDoProduto from './components/Produtos/CardDoProduto';
 import Header from './components/Header/Header';
-import imgbg from './components/imagens/fundo.jpg';
-
-
+import Nave from './components/Nave/Nave';
 
 const ContainerPrincipal = styled.div`
-  background-image: url(${imgbg});
+  background-color: white;
   margin: 10px;
   border-bottom: 1px solid black;
   display: grid;
   grid-template-columns: 1fr;
-  grid-template-rows: 100px 0.5fr 200px 1fr;
-  
+  grid-template-rows: 100px 0.5fr 2px 1fr;
+   
 `
-
-
 const ContainerProdutos = styled.div`
 color:white;
-margin-top: 50px;
-margin-top:100px;
+margin-top: 100px;
 display: grid;
 grid-column: 1fr, 2fr, 1fr;
 `
-
-
-
 const ContainerFiltros = styled.div`
 color: white;
-width: 40px;
-  text-align: center;
-  height: 50px;
-      margin-bottom: 30px;
-  display: inline-table;
-  justify-content: space-evenly;
-  align-items: center ;
-  
-  /* @media screen (min-width:390px) (max-device-width: 1200px); */
-    
+justify-content: space-around;
+align-items: center
 `
-
 const ContainerCarrinho = styled.div`
-color: lime;
-/* width: 40px; */
-  text-align: top;
-  /* height: 30px; */
-  /* width: 40%; */
-  padding: 50px;
-  box-shadow: 8px 8px 8px 5px silver;
-  align-items: top;
-  /* :hover {
-    -webkit-transform: rotate(2deg); 
-    transform: rotate(2deg);
-  @media screen (min-width:390px) (max-device-width: 1200px);} */
-  
+color: black;
+ text-align: top;
+ align-items: top;
 `
 const adicionaInputMinimo = styled.input`
     background-color: lime;
 `
-
 class App extends React.Component {
 
   state = {
@@ -76,20 +46,20 @@ class App extends React.Component {
       {
         id: 1,
         name: "Pacote 1",
-        value: 100,
+        value: 1000,
         imageUrl: "https://picsum.photos/200/200",
         chamada: "Inverno em Marte",
-        descricao: "inclui 3 dias de hospedagem + aerea",
+        descricao: "Chalé + aereo",
         quantidade: 0,
       },
 
       {
         id: 2,
         name: "Pacote 2",
-        value: 80,
+        value: 800,
         imageUrl: "https://picsum.photos/200/200",
-        chamada: "Não perca!",
-        descricao: "inclui 3 dias de hospedagem + aerea",
+        chamada: "Terra Plana All Inclusive",
+        descricao: "Últimos dias!",
         quantidade: 0,
 
       },
@@ -97,14 +67,13 @@ class App extends React.Component {
       {
         id: 3,
         name: "Pacote 3",
-        value: 50,
+        value: 500,
         imageUrl: "https://picsum.photos/200/200",
         chamada: "Não perca!",
-        descricao: "inclui 3 dias de hospedagem + aerea",
+        descricao: "Aerea + Hospedagem",
         quantidade: 0,
       },
     ]
-
 
   }
 
@@ -126,6 +95,7 @@ class App extends React.Component {
       valorMaximoFilter: event.target.value
     })
   }
+
   adicionaInputBusca = (event) => {
     this.setState({
       busca: event.target.value
@@ -156,9 +126,9 @@ class App extends React.Component {
   adicionarProduto = (id) => {
     this.state.produtos.map((produto) => {
       if (produto.id === id) {
-        if(produto.quantidade <= 0 ){
+        if (produto.quantidade <= 0) {
           produto = {
-            ... produto,
+            ...produto,
             quantidade: produto.quantidade + 1
           }
           this.state.produtosCarrinho = [produto, ...this.state.produtosCarrinho]
@@ -172,7 +142,7 @@ class App extends React.Component {
             quantidade: produto.quantidade + 1
           }
           this.state.produtosCarrinho = [this.state.produtosCarrinho]
-          this.setState({produtosCarrinho: this.state.produtosCarrinho})
+          this.setState({ produtosCarrinho: this.state.produtosCarrinho })
           this.setState({ valorTotalCarrinho: this.state.valorTotalCarrinho + produto.value })
           return produto
         }
@@ -180,11 +150,7 @@ class App extends React.Component {
     })
   }
 
-
   render() {
-
-
-
 
     return (
 
@@ -193,15 +159,7 @@ class App extends React.Component {
 
         <Header />
 
-        <ContainerCarrinho>
-          <Carrinho 
-          produtosCarrinho={this.state.produtosCarrinho} 
-          deletaProduto={this.deletaProduto} 
-          valorTotalCarrinho={this.state.valorTotalCarrinho} />
-        </ContainerCarrinho>
-
         <ContainerFiltros>
-
           <Filtros
             produtos={this.state.produtos}
             valorMinimoFilter={this.state.valorMinimoFilter}
@@ -211,11 +169,16 @@ class App extends React.Component {
             adicionaInputMaximo={this.adicionaInputMaximo}
             adicionaInputBusca={this.adicionaInputBusca}
           />
-
         </ContainerFiltros>
 
+        <Nave />
 
-
+        <ContainerCarrinho>
+          <Carrinho
+            produtosCarrinho={this.state.produtosCarrinho}
+            deletaProduto={this.deletaProduto}
+            valorTotalCarrinho={this.state.valorTotalCarrinho} />
+        </ContainerCarrinho>
 
         <ContainerProdutos>
 

@@ -22,7 +22,7 @@ export default class Carrinho extends React.Component {
         })
         return (
             <div>
-                <h1>Carrinho</h1>
+                <h3>Carrinho</h3>
                 {listaCarrinho}
                 <p>Valor total: {this.props.valorTotalCarrinho}</p>
             </div>
