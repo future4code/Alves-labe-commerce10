@@ -3,26 +3,20 @@ import styled from 'styled-components'
 import ItemDoCarrinho from '../Carrinho/ItemDoCarrinho'
 
 const ContainerCard = styled.div`
-color: white;
-height: 90vh;
-  width: 20vw;
-  padding: 0px 0px 20px 0px;
-  box-shadow: 1px 1px 10px silver;
+color: black;
+  padding: 0px 0px 0px 0px;
+  box-shadow: 8px 8px 8px 5px silver;
   border-radius: 9px;
-  margin-top: 30px;
-  margin-bottom: 30px;
   margin-left: 30px;
   display: inline-table;
   flex-direction: column;
   text-align: center;
-  align-items: justify;
-  /* @media screen (min-width:390px) (max-device-width: 1200px);
-    :hover {
-    -webkit-transform: scale(1.1);
-   
-  } */
-  
- `
+  align-items: top;
+      :hover {
+  -webkit-transform: scale(1.1);
+  transform: scale(1.1);
+    } 
+   `
 
  
 

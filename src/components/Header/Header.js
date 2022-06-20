@@ -1,28 +1,26 @@
 import React from 'react';
 import styled from 'styled-components';
-import hed from './hed.JPG';
+
 
 const ContainerHeader = styled.div`
-    display: flex;
-    justify-content: space-around;
-    text-decoration: wavy overline lime;
-  color: #00acee;
-  align-items: top ;
-  height: 50px;
-  background-color: white;
-  margin-right: 15px;
-  align-items: 50px;
-  width: 100%;
-  font-size: 15px;
-  @media screen and (min-device-width: 320px) and (max-device-width: 480px)
-  `
+  display: inline-flex;
+  justify-content: top;
+  color: white;
+  align-items: center ;
+  background-color: black;
+  width: 70%;
+  height: 80px;
+  
+    `
 
   const InHeader = styled.div`
-    width: 100%;
-    height: 80px;
+    width: 70%;
+    height: 100px;
     background-color: black;
-    color: white;
+    color: white;  
+    display: flex
     
+        
   `
 
 export default class Header extends React.Component {
@@ -32,12 +30,11 @@ export default class Header extends React.Component {
 
         return (
             <InHeader>
-            <h1>(C)elerita</h1>
-            
-              
-
-
-            </InHeader>
+            <h1><hr></hr> (C)elerita</h1>
+            <br/>
+            <h4><i>Viagens espaciais</i></h4>
+             </InHeader>
         )
     }
 }
+/* background-image: url(${imgbg}); */
